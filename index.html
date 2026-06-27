@@ -1,119 +1,28 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VANGUARD</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://db.onlinewebfonts.com/c/8b75d9dcff6a.css" rel="stylesheet" type="text/css" />
-    <style>
-      :root { color-scheme: dark; }
-      * { box-sizing: border-box; }
-      html, body { margin: 0; min-height: 100%; background: #000; font-family: Inter, sans-serif; }
-      body { overflow-x: hidden; }
-      a, button { -webkit-tap-highlight-color: transparent; }
-      .font-podium { font-family: "FSP DEMO - PODIUM Sharp 4.11", Impact, sans-serif; }
-      .hero { position: relative; min-height: 100vh; overflow: hidden; color: #fff; }
-      video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-      .shade, .grade { position: absolute; inset: 0; pointer-events: none; }
-      .shade { background: rgba(0,0,0,.45); }
-      .grade { background: linear-gradient(90deg, rgba(0,0,0,.84), rgba(0,0,0,.24) 58%, rgba(0,0,0,.48)); }
-      nav { position: absolute; inset: 0 0 auto; z-index: 30; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; }
-      .brand { color: white; text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 1.5rem; }
-      .nav-links, .touch { display: none; }
-      .nav-links { align-items: center; gap: 2rem; }
-      .nav-links a { color: rgba(255,255,255,.8); text-decoration: none; font-size: .875rem; text-transform: uppercase; letter-spacing: .18em; transition: color .2s; }
-      .nav-links a:hover { color: #fff; }
-      .touch, .primary { align-items: center; gap: .5rem; color: white; text-decoration: none; text-transform: uppercase; letter-spacing: .16em; font-size: .75rem; transition: .2s; }
-      .touch { border: 1px solid rgba(255,255,255,.3); padding: .75rem 1.5rem; }
-      .touch:hover { border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.1); }
-      .hamburger { display: grid; gap: .375rem; border: 0; background: transparent; padding: .25rem; }
-      .hamburger span { display: block; height: 2px; width: 1.5rem; background: #fff; }
-      .hamburger span:last-child { width: 1rem; margin-left: auto; }
-      .menu { position: fixed; inset: 0; z-index: 50; display: grid; grid-template-rows: auto 1fr; background: rgba(0,0,0,.95); backdrop-filter: blur(4px); opacity: 0; visibility: hidden; transition: .5s; }
-      .menu.open { opacity: 1; visibility: visible; }
-      .menu-head { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; }
-      .close { border: 0; background: transparent; color: #fff; font-size: 2rem; line-height: 1; }
-      .menu-body { display: flex; min-height: calc(100vh - 84px); flex-direction: column; align-items: center; justify-content: center; padding: 0 1.5rem 4rem; }
-      .menu-links { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
-      .menu-links a, .menu .touch { font-family: "FSP DEMO - PODIUM Sharp 4.11", Impact, sans-serif; color: white; text-decoration: none; text-transform: uppercase; font-size: 2.25rem; transition: .5s; opacity: 0; transform: translateY(20px); }
-      .menu.open .menu-links a, .menu.open .touch { opacity: 1; transform: translateY(0); }
-      .menu .touch { display: flex; margin-top: 2.5rem; font-family: Inter, sans-serif; font-size: .75rem; }
-      .content { position: relative; z-index: 20; display: flex; min-height: 100vh; align-items: center; padding: 7rem 1.5rem; }
-      .inner { width: 100%; max-width: 64rem; }
-      .tag { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.5rem; color: rgba(255,255,255,.7); font-size: .75rem; text-transform: uppercase; letter-spacing: .3em; }
-      h1 { margin: 0; color: white; text-transform: uppercase; letter-spacing: 0; line-height: .92; font-size: clamp(2.8rem, 8vw, 7rem); }
-      .sub { margin: 1.5rem 0 0; max-width: 28rem; color: rgba(255,255,255,.7); font-size: .875rem; line-height: 1.75; }
-      .sub strong { color: #fff; font-weight: 600; }
-      .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 2rem; }
-      .primary { display: flex; background: #000; padding: .75rem 1.25rem; font-size: .6875rem; }
-      .primary:hover { background: #171717; }
-      .award { display: none; align-items: center; gap: .75rem; color: rgba(255,255,255,.6); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
-      .stats { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; }
-      .stat { min-width: 8rem; }
-      .value { color: #fff; font-size: 1.5rem; font-weight: 700; letter-spacing: 0; }
-      .label { margin-top: .25rem; color: rgba(255,255,255,.5); font-size: .5625rem; text-transform: uppercase; letter-spacing: .18em; }
-      svg { flex: none; }
-      @keyframes fade-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-      .fade { opacity: 0; animation: fade-up .8s ease-out forwards; }
-      .d1 { animation-delay: .2s; } .d2 { animation-delay: .4s; } .d3 { animation-delay: .6s; } .d4 { animation-delay: .8s; }
-      @media (min-width: 640px) {
-        nav, .menu-head, .content { padding-left: 2.5rem; padding-right: 2.5rem; }
-        .brand { font-size: 1.875rem; }
-        .tag { font-size: .875rem; }
-        .sub { font-size: 1rem; }
-        .primary { padding: 1rem 1.75rem; font-size: .75rem; }
-        .award { display: flex; }
-        .stats { gap: 3rem; margin-top: 2.5rem; }
-        .value { font-size: 2.25rem; }
-        .label { font-size: .75rem; }
-      }
-      @media (min-width: 768px) {
-        .nav-links, .touch { display: flex; }
-        .hamburger, .menu { display: none; }
-      }
-      @media (min-width: 1024px) {
-        nav, .content { padding-left: 4rem; padding-right: 4rem; }
-        nav { padding-top: 1.75rem; padding-bottom: 1.75rem; }
-        .tag { margin-bottom: 2rem; }
-        .sub { margin-top: 2rem; }
-        .cta-row { margin-top: 2.5rem; gap: 1.5rem; }
-        .stats { gap: 4rem; margin-top: 3.5rem; }
-        .value { font-size: 3rem; }
-      }
-    </style>
-  </head>
-  <body>
-    <main class="hero">
-      <video src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKV" autoplay muted loop playsinline></video>
-      <div class="shade"></div><div class="grade"></div>
-      <nav>
-        <a href="#" class="brand font-podium">VANGUARD</a>
-        <div class="nav-links"><a href="#">Projects</a><a href="#">Studio</a><a href="#">Offerings</a><a href="#">Inquire</a></div>
-        <a href="#" class="touch">GET IN TOUCH <span>↗</span></a>
-        <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
-      </nav>
-      <div class="menu" id="menu">
-        <div class="menu-head"><a href="#" class="brand font-podium">VANGUARD</a><button class="close" aria-label="Close menu">×</button></div>
-        <div class="menu-body"><div class="menu-links"><a style="transition-delay:100ms" href="#">Projects</a><a style="transition-delay:180ms" href="#">Studio</a><a style="transition-delay:260ms" href="#">Offerings</a><a style="transition-delay:340ms" href="#">Inquire</a></div><a href="#" class="touch" style="transition-delay:420ms">GET IN TOUCH <span>↗</span></a></div>
-      </div>
-      <section class="content">
-        <div class="inner">
-          <div class="tag fade"><span>♛</span><span>World-Class Digital Collective</span></div>
-          <h1 class="font-podium fade d1"><span>Design.</span><br /><span>Disrupt.</span><br /><span>Conquer.</span></h1>
-          <p class="sub fade d2">We build fierce brand identities<br />that don't just turn heads --<br /><strong>they lead.</strong></p>
-          <div class="cta-row fade d3"><a href="#" class="primary">SEE OUR WORK <span>↗</span></a><div class="award"><span style="font-size:2rem">◎</span><div>Top-Rated<br />Brand Studio</div></div></div>
-          <div class="stats fade d4"><div class="stat"><div class="value">250+</div><div class="label">Brands Transformed</div></div><div class="stat"><div class="value">95%</div><div class="label">Client Retention</div></div><div class="stat"><div class="value">10+</div><div class="label">Years in the Game</div></div></div>
-        </div>
-      </section>
-    </main>
-    <script>
-      const menu = document.getElementById('menu');
-      document.querySelector('.hamburger').addEventListener('click', () => menu.classList.add('open'));
-      document.querySelector('.close').addEventListener('click', () => menu.classList.remove('open'));
-      menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => menu.classList.remove('open')));
-    </script>
-  </body>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Professional VW Kombi production transport in Athens for commercials, films, series, airport pickups, and production teams." />
+<title>Luke Mathas Transfers | Production Transport Athens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--black:#121212;--panel:#19171d;--line:rgba(255,255,255,.11);--muted:rgba(255,255,255,.66);--lime:#d7ff00;--purple:#6d5dd3}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--black);color:#fff;font-family:Inter,Arial,sans-serif;overflow-x:hidden}a{color:inherit;text-decoration:none}.display{font-family:'Archivo Black',Impact,sans-serif;letter-spacing:0}nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,56px);background:rgba(18,18,18,.76);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}.brand{display:flex;align-items:center;gap:12px}.mark{font-family:'Archivo Black';font-size:34px;line-height:.75;font-style:italic;letter-spacing:-.18em;transform:skewX(-10deg)}.word{display:flex;flex-direction:column;line-height:.9}.word span{font-size:17px}.word b{font-size:25px}.links{display:none;gap:26px}.links a{font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.68)}.links a:hover{color:var(--lime)}.phone{display:none;background:var(--lime);color:#121212;padding:13px 18px;font-size:11px;font-weight:950;letter-spacing:.16em;text-transform:uppercase}.hero{min-height:100vh;padding:118px clamp(20px,5vw,72px) 70px;position:relative;display:grid;align-items:center;overflow:hidden;background:radial-gradient(circle at 74% 35%,rgba(109,93,211,.28),transparent 30%),linear-gradient(90deg,#121212 0%,#151419 54%,#222027 100%)}.hero:before{content:'KOMBI';position:absolute;right:-6vw;top:13vh;font-family:'Archivo Black';font-size:23vw;line-height:.75;color:rgba(255,255,255,.045)}.hero:after{content:'';position:absolute;right:4vw;bottom:10vh;width:min(620px,78vw);height:min(270px,34vw);border:1px solid rgba(255,255,255,.14);background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.035));clip-path:polygon(7% 56%,20% 31%,67% 24%,90% 41%,96% 64%,90% 80%,13% 80%);box-shadow:0 36px 90px rgba(0,0,0,.42)}.hero-inner{position:relative;z-index:2;max-width:1050px}.eyebrow{display:flex;gap:10px;align-items:center;color:var(--lime);font-size:12px;font-weight:950;letter-spacing:.25em;text-transform:uppercase}.h1{max-width:1030px;margin:26px 0 0;font-family:'Archivo Black';font-size:clamp(3rem,8vw,7.5rem);line-height:.9;text-transform:uppercase}.lead{max-width:780px;margin:28px 0 0;color:rgba(255,255,255,.76);font-size:18px;line-height:1.75}.actions{display:flex;flex-wrap:wrap;gap:13px;margin-top:34px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:17px 24px;font-size:12px;font-weight:950;letter-spacing:.18em;text-transform:uppercase}.primary{background:var(--lime);color:#121212}.secondary{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:rgba(255,255,255,.82)}.stats{display:flex;flex-wrap:wrap;gap:24px;margin-top:44px}.stat{border-left:1px solid rgba(215,255,0,.62);padding-left:15px}.stat b{display:block;font-size:40px}.stat span{display:block;margin-top:5px;font-size:10px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.52)}section{padding:82px clamp(20px,5vw,72px)}.wrap{max-width:1280px;margin:0 auto}.small{display:flex;gap:9px;align-items:center;margin:0 0 17px;color:var(--lime);font-size:12px;font-weight:950;letter-spacing:.24em;text-transform:uppercase}.h2{margin:0;font-family:'Archivo Black';font-size:clamp(2.7rem,6vw,6rem);line-height:.92;text-transform:uppercase}.body{max-width:760px;color:var(--muted);font-size:17px;line-height:1.85}.panel{background:var(--panel)}.split{display:grid;gap:42px}.cards{display:grid;gap:16px;margin-top:48px}.card{border:1px solid var(--line);background:rgba(255,255,255,.035);padding:28px;transition:.2s}.card:hover{border-color:rgba(215,255,0,.48);background:rgba(255,255,255,.055)}.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}.num{color:var(--lime);font-size:12px;font-weight:950;letter-spacing:.25em}.emoji{display:grid;place-items:center;width:36px;height:36px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.055);border-radius:999px;font-size:16px;filter:grayscale(1);opacity:.8}.card:hover .emoji{filter:grayscale(0);opacity:1}.card h3{margin:0;font-size:21px}.card p{color:rgba(255,255,255,.6);line-height:1.75}.vehicle{background:#d7ff00;color:#121212;position:relative;overflow:hidden}.vehicle:before{content:'';position:absolute;right:-11vw;top:-10vw;width:34vw;height:34vw;border-radius:999px;background:rgba(109,93,211,.54);filter:blur(80px)}.van-panel{position:relative;min-height:260px;border:1px solid rgba(18,18,18,.18);background:#18171b;box-shadow:0 28px 70px rgba(0,0,0,.25);overflow:hidden}.van-panel:before{content:'VW KOMBI';position:absolute;left:22px;top:20px;font-family:'Archivo Black';font-size:clamp(54px,12vw,150px);line-height:.78;color:rgba(255,255,255,.06)}.van-panel:after{content:'';position:absolute;left:8%;right:8%;bottom:22%;height:35%;background:linear-gradient(180deg,#3b3d3e,#151617);clip-path:polygon(0 55%,12% 24%,67% 14%,88% 36%,100% 58%,94% 82%,9% 82%);box-shadow:0 24px 40px rgba(0,0,0,.45)}.checks{display:grid;gap:12px;margin-top:26px}.check{border:1px solid rgba(18,18,18,.2);background:rgba(18,18,18,.06);padding:15px;font-weight:850}.why-list{display:grid;gap:12px}.why{border:1px solid var(--line);background:rgba(255,255,255,.035);padding:18px;font-weight:800;color:rgba(255,255,255,.84)}.contact{border:1px solid var(--line);background:rgba(255,255,255,.035);padding:30px;display:grid;gap:32px}.contact-actions{display:flex;flex-direction:column;gap:12px}.contact-actions a{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;font-size:13px;font-weight:950;letter-spacing:.15em;text-transform:uppercase}.call{background:var(--lime);color:#121212}.tel{border:1px solid rgba(255,255,255,.2)}.legal .body{max-width:900px}.cookie{position:fixed;left:18px;right:18px;bottom:18px;z-index:40;display:none;gap:16px;align-items:center;justify-content:space-between;border:1px solid rgba(255,255,255,.15);background:rgba(18,18,18,.96);padding:16px;box-shadow:0 20px 70px rgba(0,0,0,.35)}.cookie.show{display:flex}.cookie p{margin:0;color:rgba(255,255,255,.72);font-size:13px;line-height:1.55}.cookie-actions{display:flex;gap:10px;flex:none}.cookie button{border:1px solid rgba(255,255,255,.2);background:transparent;color:white;padding:11px 14px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.cookie .accept{background:var(--lime);color:#121212;border-color:var(--lime)}@media(min-width:760px){.links,.phone{display:flex}.cards{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:.95fr 1.05fr;align-items:center}.contact{grid-template-columns:1fr auto;align-items:center;padding:52px}.contact-actions{min-width:360px}.why-list{grid-template-columns:repeat(2,1fr)}}@media(min-width:1120px){.cards{grid-template-columns:repeat(3,1fr)}}@media(max-width:640px){nav{position:absolute}.hero{padding-top:104px}.hero:after{opacity:.38;right:-18vw;bottom:14vh}.actions a{width:100%}.cookie{flex-direction:column;align-items:flex-start}.cookie-actions{width:100%;flex-direction:column}.cookie button{width:100%}.word span{font-size:15px}.word b{font-size:22px}.mark{font-size:30px}}
+</style>
+</head>
+<body>
+<nav><a class="brand" href="#"><span class="mark">LM</span><span class="word"><span>Luke Mathas</span><b>Transfers</b></span></a><div class="links"><a href="#about">About</a><a href="#services">Services</a><a href="#vehicle">Vehicle</a><a href="#privacy">Privacy</a><a href="#booking">Booking</a></div><a class="phone" href="tel:+306956482092">+30 695 648 2092</a></nav>
+<header class="hero"><div class="hero-inner"><div class="eyebrow">🎬 Production transport / Athens, Greece</div><h1 class="h1">Reliable Crew Transport for Shoots, Sets, and Production Days</h1><p class="lead">Professional VW Kombi van transport for commercials, films, series, airport pickups, and production teams in Athens and across Greece.</p><div class="actions"><a class="btn primary" href="https://wa.me/306956482092?text=Hi%20Loukas%2C%20I%20would%20like%20to%20request%20availability%20for%20production%20transport.%20Date%2Ftime%2C%20pickup%20points%2C%20passengers%2C%20and%20shoot%20details%3A" target="_blank" rel="noopener">Request Availability ↗</a><a class="btn secondary" href="#services">Book Production Transport</a></div><div class="stats"><div class="stat"><b>8</b><span>Passengers</span></div><div class="stat"><b>ATH</b><span>Athens Based</span></div><div class="stat"><b>Sets</b><span>Studios / Airports / Locations</span></div></div></div></header>
+<section id="about"><div class="wrap split"><div><p class="small">📍 Production-ready in Athens</p><h2 class="h2">A driver built for shoot days.</h2></div><p class="body">Production transport is about more than arriving at an address. It means reading the day, staying calm when call times move, knowing when to be visible and when to disappear, and keeping people moving between airports, hotels, studios, sets, and filming locations without adding noise to the production.</p></div></section>
+<section id="services" class="panel"><div class="wrap"><p class="small">🚐 Services</p><h2 class="h2">Transport for production movement.</h2><div class="cards"><article class="card"><div class="card-top"><span class="num">01</span><span class="emoji">👥</span></div><h3>Production crew transport</h3><p>Crew, cast, directors, agency teams, clients, and production guests moved calmly between schedule points.</p></article><article class="card"><div class="card-top"><span class="num">02</span><span class="emoji">🎬</span></div><h3>Film, TV, commercial shoots</h3><p>Transport support for commercials, series, films, branded content, documentaries, and corporate video days.</p></article><article class="card"><div class="card-top"><span class="num">03</span><span class="emoji">✈️</span></div><h3>Airport pickups</h3><p>Athens airport arrivals for production teams, clients, directors, cast, and visiting crew.</p></article><article class="card"><div class="card-top"><span class="num">04</span><span class="emoji">🏨</span></div><h3>Hotel to set transfers</h3><p>Reliable hotel, studio, basecamp, and set transfers aligned with call times.</p></article><article class="card"><div class="card-top"><span class="num">05</span><span class="emoji">📍</span></div><h3>Location-to-location moves</h3><p>Flexible movement between filming locations when the day changes quickly.</p></article><article class="card"><div class="card-top"><span class="num">06</span><span class="emoji">🚐</span></div><h3>Private group transfers</h3><p>Comfortable private group transport for up to 8 passengers when production needs extend beyond set.</p></article></div></div></section>
+<section id="vehicle" class="vehicle"><div class="wrap split"><div class="van-panel" aria-label="VW Kombi van visual"></div><div><p class="small" style="color:#121212">🚐 Volkswagen Kombi / up to 8 passengers</p><h2 class="h2">Practical. Spacious. Production-ready.</h2><p class="body" style="color:rgba(18,18,18,.78)">A clean, comfortable VW Kombi van for crew movement, client pickups, cast transport, hotel transfers, and location changes. Enough room for people, day bags, and light production needs without feeling like a generic transfer van.</p><div class="checks"><div class="check">Comfortable transport for up to 8 passengers</div><div class="check">Clean, professional, discreet presentation</div><div class="check">Suitable for airports, hotels, studios, and set locations</div></div></div></div></section>
+<section><div class="wrap split"><div><p class="small">✅ Why choose this service</p><h2 class="h2">Calm logistics. Sharp timing.</h2></div><div class="why-list"><div class="why">Reliable timing</div><div class="why">Production-friendly communication</div><div class="why">Discreet professional driver</div><div class="why">Comfortable van</div><div class="why">Up to 8 passengers</div><div class="why">Ideal for directors, agency teams, clients, cast, and crew</div></div></div></section>
+<section id="privacy" class="legal"><div class="wrap"><p class="small">🔒 GDPR / Privacy</p><h2 class="h2">Privacy Policy</h2><p class="body">Luke Mathas Transfers collects only the information you choose to send when requesting transport, such as your name, phone number, production company, travel date, pickup and drop-off points, passenger count, luggage or equipment notes, and booking details. This information is used only to respond to your request, arrange transport, and communicate about the booking.</p><p class="body">No analytics, advertising pixels, or non-essential tracking scripts are loaded on this website before consent. WhatsApp and phone links open only when you choose to click them.</p></div></section>
+<section id="terms" class="panel legal"><div class="wrap"><p class="small">📝 Terms</p><h2 class="h2">Terms of Service</h2><p class="body">Transport is subject to availability, agreed schedule, passenger count, route, and production requirements. Quotes and bookings should be confirmed directly before the shoot day. This service is positioned for production transport, airport pickups, hotel-to-set transfers, and private group movement.</p></div></section>
+<section id="booking" class="panel"><div class="wrap contact"><div><p class="small">📲 Contact / booking</p><h2 class="h2">Request shoot availability.</h2><p class="body">Send the essentials and get a clear answer on availability, timing, and route planning.</p></div><div class="contact-actions"><a class="call" href="https://wa.me/306956482092?text=Hi%20Loukas%2C%20I%20would%20like%20to%20request%20availability%20for%20production%20transport.%20Date%2Ftime%2C%20pickup%20points%2C%20passengers%2C%20and%20shoot%20details%3A" target="_blank" rel="noopener">WhatsApp Booking <span>↗</span></a><a class="tel" href="tel:+306956482092">+30 695 648 2092 <span>↗</span></a></div></div></section>
+<div class="cookie" id="cookie"><p><b>Privacy-first site.</b> No analytics or advertising trackers run unless you allow them. Essential booking links work without cookies.</p><div class="cookie-actions"><button id="reject">Essential only</button><button id="accept" class="accept">Accept all</button></div></div>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});const c=localStorage.getItem('lmt_cookie_consent'),b=document.getElementById('cookie');if(!c)b.classList.add('show');function setConsent(v){localStorage.setItem('lmt_cookie_consent',v?'accepted':'essential');gtag('consent','update',{ad_storage:v?'granted':'denied',analytics_storage:v?'granted':'denied',ad_user_data:v?'granted':'denied',ad_personalization:v?'granted':'denied'});b.classList.remove('show')}document.getElementById('reject').onclick=()=>setConsent(false);document.getElementById('accept').onclick=()=>setConsent(true);</script>
+</body>
 </html>
